@@ -1,12 +1,12 @@
 {
-    "name": "vendor_name/package_name",
-    "description": "description_text",
+    "name": "vigo5190/smexp",
+    "description": "some export",
     "minimum-stability": "stable",
     "license": "proprietary",
     "authors": [
         {
-            "name": "author's name",
-            "email": "email@example.com"
+            "name": "Stan Gumeniuk",
+            "email": "i@vigo.su"
         }
     ]
 }
