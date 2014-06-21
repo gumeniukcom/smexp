@@ -15,20 +15,20 @@ abstract class XlsAbstract implements XlsInterface{
         $this->init();
     }
 
-    public function setData(Array $data){
-        try{
+    public function setData($data) {
+        try {
             $i = 1;
-            foreach($data as $row){
-                $j=1;
-                foreach($row as $cell){
+            foreach ($data as $row) {
+                $j = 'A';
+                foreach ($row as $cell) {
                     $this->XlsDocument->setActiveSheetIndex(0)
-                              ->setCellValue($j++.$i, $cell);
+                                      ->setCellValue($j++ . $i, $cell);
                 }
                 $i++;
             }
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             throw new \ErrorException(
-                sprintf('Can\'t set data to Xls, because: %s',  $e->getMessage()),
+                sprintf('Can\'t set data to Xls, because: %s', $e->getMessage()),
                 $e->getCode(),
                 1,
                 $e->getFile(),
@@ -40,10 +40,12 @@ abstract class XlsAbstract implements XlsInterface{
     }
 
     public function dumpXlsToFile($fileNameWithFullPathWithOutExtension){
-        $objWriter = PHPExcel_IOFactory::createWriter($this->XlsDocument, 'Excel2007');
+//        $objWriter = PHPExcel_IOFactory::createWriter($this->XlsDocument, 'Excel2007');
+        $objWriter = PHPExcel_IOFactory::createWriter($this->XlsDocument, 'Excel5');
         $filename = $fileNameWithFullPathWithOutExtension;
         try{
-            $objWriter->save($filename);
+//            $objWriter->save($filename.'.xlsx');
+            $objWriter->save($filename.'.xls');
         } catch (\Exception $e){
             throw new \ErrorException(
                 sprintf('Can\'t dump xls to file %s, because: %s', $fileNameWithFullPathWithOutExtension, $e->getMessage()),

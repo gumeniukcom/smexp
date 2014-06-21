@@ -9,7 +9,8 @@ use \Doctrine\ORM\Tools\Setup,
     Vigo5190\Smexp\Arch\Arch,
     \Doctrine\ORM\EntityManager,
     \PHPExcel,
-    \PHPExcel_IOFactory;
+    \PHPExcel_IOFactory,
+    Vigo5190\Smexp\Xls\XlsRegistrations;
 
 class Smexp {
     /** @var  Array */
@@ -32,6 +33,9 @@ class Smexp {
 
     /** @var  PHPExcel */
     private $Xls;
+
+    /** @var  XlsRegistrations */
+    private $Xls2;
 
     public function __construct(EntityManager $em, Array $config) {
         $this->archConfig = $config['arch'];
@@ -86,55 +90,82 @@ class Smexp {
 
 
     private function initXls() {
-        $this->Xls = new \PHPExcel();
 
+        $this->Xls2 = new XlsRegistrations();
 
-        $this->Xls->getProperties()->setCreator("user")
-                  ->setLastModifiedBy("username")
-                  ->setTitle("Title")
-                  ->setSubject("Название.")
-                  ->setDescription("Описание")
-                  ->setKeywords("php, all results")
-                  ->setCategory("some category");
-
-        $this->Xls->getDefaultStyle()->getFont()
-                  ->setName('Arial')
-                  ->setSize(10);
-
-        $this->Xls->getActiveSheet()->setTitle('Regs');
-        $this->Xls->setActiveSheetIndex(0);
+//        $this->Xls = new \PHPExcel();
+//
+//
+//        $this->Xls->getProperties()->setCreator("user")
+//                  ->setLastModifiedBy("username")
+//                  ->setTitle("Title")
+//                  ->setSubject("Название.")
+//                  ->setDescription("Описание")
+//                  ->setKeywords("php, all results")
+//                  ->setCategory("some category");
+//
+//        $this->Xls->getDefaultStyle()->getFont()
+//                  ->setName('Arial')
+//                  ->setSize(10);
+//
+//        $this->Xls->getActiveSheet()->setTitle('Regs');
+//        $this->Xls->setActiveSheetIndex(0);
     }
 
     private function setAllRegistrationsToXls() {
-        $i = 1;
-        /** @var Entities\Registration $reg */
-        foreach ($this->allRegistrations as $reg) {
-            $j='A';
-            $this->Xls->setActiveSheetIndex(0)
-                      ->setCellValue($j++.$i, $reg->getId())
-                      ->setCellValue($j++.$i, $reg->getSomedata1())
-                      ->setCellValue($j++.$i, $reg->getName())
-                      ->setCellValue($j++.$i, $reg->getSecondName())
-                      ->setCellValue($j++.$i, $reg->getLastName())
-                      ->setCellValue($j++.$i, $reg->getBirthday()->format("Y-m-d"))
-                      ->setCellValue($j++.$i, $reg->getPhone())
-                      ->setCellValue($j++.$i, $reg->getEmail())
-                      ->setCellValue($j++.$i, $reg->getCity())
-                      ->setCellValue($j++.$i, $reg->getImei())
-                      ->setCellValue($j++.$i, $reg->getModel())
-                      ->setCellValue($j++.$i, $reg->getDateBuy()->format("Y-m-d"))
-                      ->setCellValue($j.$i, $reg->getImgPath());
+//        $data = [];
+//        $i = 1;
+//        /** @var Entities\Registration $reg */
+//        foreach ($this->allRegistrations as $reg) {
+//            $j = 1;
+//                $data[$i] = [
+//                    $j++ => $reg->getId(),
+//                    $j++ => $reg->getSomedata1(),
+//                    $j++ => $reg->getName(),
+//                    $j++ => $reg->getSecondName(),
+//                    $j++ => $reg->getLastName(),
+//                    $j++ => $reg->getBirthday()->format("Y-m-d"),
+//                    $j++ => $reg->getPhone(),
+//                    $j++ => $reg->getEmail(),
+//                    $j++ => $reg->getCity(),
+//                    $j++ => $reg->getImei(),
+//                    $j++ => $reg->getModel(),
+//                    $j++ => $reg->getDateBuy()->format("Y-m-d"),
+//                    $j++ => $reg->getCity(),
+//                    $j++ => $reg->getImgPath(),
+//
+//                ];
+//            $i++;
+////            $j='A';
+////            $this->Xls->setActiveSheetIndex(0)
+////                      ->setCellValue($j++.$i, $reg->getId())
+////                      ->setCellValue($j++.$i, $reg->getSomedata1())
+////                      ->setCellValue($j++.$i, $reg->getName())
+////                      ->setCellValue($j++.$i, $reg->getSecondName())
+////                      ->setCellValue($j++.$i, $reg->getLastName())
+////                      ->setCellValue($j++.$i, $reg->getBirthday()->format("Y-m-d"))
+////                      ->setCellValue($j++.$i, $reg->getPhone())
+////                      ->setCellValue($j++.$i, $reg->getEmail())
+////                      ->setCellValue($j++.$i, $reg->getCity())
+////                      ->setCellValue($j++.$i, $reg->getImei())
+////                      ->setCellValue($j++.$i, $reg->getModel())
+////                      ->setCellValue($j++.$i, $reg->getDateBuy()->format("Y-m-d"))
+////                      ->setCellValue($j.$i, $reg->getImgPath());
+////
+////            $this->Xls->getActiveSheet()
+////                      ->getCell("M".$i++)->getHyperlink()->setUrl($reg->getImgPath());
+//        }
 
-            $this->Xls->getActiveSheet()
-                      ->getCell("M".$i++)->getHyperlink()->setUrl($reg->getImgPath());
-        }
+        $this->Xls2->setData($this->allRegistrations);
 
     }
 
     private function dumpXlsWithAllRegistrationsToFile() {
-        $objWriter = PHPExcel_IOFactory::createWriter($this->Xls, 'Excel2007');
-        $filename = $this->Arch->getTempDir() . '/' . 'registrations.xlsx';
-        $objWriter->save($filename);
+        $fileNameWithOutExt = $this->Arch->getTempDir() . '/' . 'registrations';
+        $this->Xls2->dumpXlsToFile($fileNameWithOutExt);
+//        $objWriter = PHPExcel_IOFactory::createWriter($this->Xls, 'Excel2007');
+//        $filename = $this->Arch->getTempDir() . '/' . 'registrations.xlsx';
+//        $objWriter->save($filename);
     }
 
 

@@ -2,14 +2,13 @@
 
 namespace Vigo5190\Smexp\Xls;
 
-
 interface XlsInterface {
 
     /**
-     * @param array $data
+     * @param $data
      * @throws \ErrorException
      */
-    public function setData(Array $data);
+    public function setData($data);
 
     /**
      * Принимает на вход полный путь до файла, без расширения
