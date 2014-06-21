@@ -1,7 +1,6 @@
 vendor/
 composer.phar
 .idea/
-www
 .gitignore
 .DS_Store
 composer.lock
