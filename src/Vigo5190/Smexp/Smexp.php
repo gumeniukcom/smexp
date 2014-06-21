@@ -43,6 +43,9 @@ class Smexp {
         $this->entityManager = $em;
     }
 
+    /**
+     * @return $this
+     */
     public function getDumpRegistrationsInArch() {
         $this->initArch();
         $this->initAllRegistrations();
@@ -51,132 +54,90 @@ class Smexp {
         $this->dumpXlsWithAllRegistrationsToFile();
         $this->dumpUploads();
         $this->zipArch();
-
         $this->getZipArch();
-
-
-
-
+        return $this;
     }
 
-    private function getZipArch(){
+    /**
+     * @return $this
+     */
+    private function getZipArch() {
         if (file_exists($this->Arch->getZipArchPath())) {
-
             header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
             header("Cache-Control: public"); // needed for i.e.
             header("Content-Type: archive/zip");
             header("Content-Transfer-Encoding: Binary");
-            header("Content-Length:".filesize($this->Arch->getZipArchPath()));
+            header("Content-Length:" . filesize($this->Arch->getZipArchPath()));
             header("Content-Disposition: attachment; filename=file.zip");
             readfile($this->Arch->getZipArchPath());
         } else {
             die("Error: File not found.");
         }
+        return $this;
     }
 
+    /**
+     * @return $this
+     */
     private function initAllRegistrations() {
         /** @var Repositories\RegistrationRepository $RegistrationsRepository */
         $RegistrationsRepository = $this->entityManager->getRepository('\\Vigo5190\\Smexp\\Entities\\Registration');
         $this->allRegistrations = $RegistrationsRepository->findAll();
+        return $this;
     }
 
+    /**
+     * @return $this
+     */
     private function initArch() {
         $this->Arch = new Arch($this->archConfig['dir']);
+        return $this;
     }
 
-    private function zipArch(){
+    /**
+     * @return $this
+     */
+    private function zipArch() {
         $this->Arch->zip();
+        return $this;
     }
 
-
+    /**
+     * @return $this
+     */
     private function initXls() {
-
         $this->Xls2 = new XlsRegistrations();
-
-//        $this->Xls = new \PHPExcel();
-//
-//
-//        $this->Xls->getProperties()->setCreator("user")
-//                  ->setLastModifiedBy("username")
-//                  ->setTitle("Title")
-//                  ->setSubject("Название.")
-//                  ->setDescription("Описание")
-//                  ->setKeywords("php, all results")
-//                  ->setCategory("some category");
-//
-//        $this->Xls->getDefaultStyle()->getFont()
-//                  ->setName('Arial')
-//                  ->setSize(10);
-//
-//        $this->Xls->getActiveSheet()->setTitle('Regs');
-//        $this->Xls->setActiveSheetIndex(0);
+        return $this;
     }
 
+    /**
+     * @return $this
+     */
     private function setAllRegistrationsToXls() {
-//        $data = [];
-//        $i = 1;
-//        /** @var Entities\Registration $reg */
-//        foreach ($this->allRegistrations as $reg) {
-//            $j = 1;
-//                $data[$i] = [
-//                    $j++ => $reg->getId(),
-//                    $j++ => $reg->getSomedata1(),
-//                    $j++ => $reg->getName(),
-//                    $j++ => $reg->getSecondName(),
-//                    $j++ => $reg->getLastName(),
-//                    $j++ => $reg->getBirthday()->format("Y-m-d"),
-//                    $j++ => $reg->getPhone(),
-//                    $j++ => $reg->getEmail(),
-//                    $j++ => $reg->getCity(),
-//                    $j++ => $reg->getImei(),
-//                    $j++ => $reg->getModel(),
-//                    $j++ => $reg->getDateBuy()->format("Y-m-d"),
-//                    $j++ => $reg->getCity(),
-//                    $j++ => $reg->getImgPath(),
-//
-//                ];
-//            $i++;
-////            $j='A';
-////            $this->Xls->setActiveSheetIndex(0)
-////                      ->setCellValue($j++.$i, $reg->getId())
-////                      ->setCellValue($j++.$i, $reg->getSomedata1())
-////                      ->setCellValue($j++.$i, $reg->getName())
-////                      ->setCellValue($j++.$i, $reg->getSecondName())
-////                      ->setCellValue($j++.$i, $reg->getLastName())
-////                      ->setCellValue($j++.$i, $reg->getBirthday()->format("Y-m-d"))
-////                      ->setCellValue($j++.$i, $reg->getPhone())
-////                      ->setCellValue($j++.$i, $reg->getEmail())
-////                      ->setCellValue($j++.$i, $reg->getCity())
-////                      ->setCellValue($j++.$i, $reg->getImei())
-////                      ->setCellValue($j++.$i, $reg->getModel())
-////                      ->setCellValue($j++.$i, $reg->getDateBuy()->format("Y-m-d"))
-////                      ->setCellValue($j.$i, $reg->getImgPath());
-////
-////            $this->Xls->getActiveSheet()
-////                      ->getCell("M".$i++)->getHyperlink()->setUrl($reg->getImgPath());
-//        }
-
         $this->Xls2->setData($this->allRegistrations);
-
+        return $this;
     }
 
+    /**
+     * @return $this
+     */
     private function dumpXlsWithAllRegistrationsToFile() {
         $fileNameWithOutExt = $this->Arch->getTempDir() . '/' . 'registrations';
         $this->Xls2->dumpXlsToFile($fileNameWithOutExt);
-//        $objWriter = PHPExcel_IOFactory::createWriter($this->Xls, 'Excel2007');
-//        $filename = $this->Arch->getTempDir() . '/' . 'registrations.xlsx';
-//        $objWriter->save($filename);
+        return $this;
     }
 
-
-    private function dumpUploads(){
+    /**
+     * @return $this
+     */
+    private function dumpUploads() {
         /** @var Entities\Registration $reg */
         foreach ($this->allRegistrations as $reg) {
             copy(
-                $this->filesConfig['files']."/".$reg->getImgPath(),
-                $this->Arch->getTempDir().'/'.$reg->getImgPath()
+                $this->filesConfig['files'] . "/" . $reg->getImgPath(),
+                $this->Arch->getTempDir() . '/' . $reg->getImgPath()
             );
         }
-
+        return $this;
     }
 } 

@@ -2,12 +2,10 @@
 
 namespace Vigo5190\Smexp\Xls;
 
-use \PHPExcel,
-    \PHPExcel_IOFactory,
-    \Doctrine\ORM\EntityManager,
-    Vigo5190\Smexp\Entities\Registration,
+use Vigo5190\Smexp\Entities\Registration,
     PHPExcel_Cell_Hyperlink,
-    PHPExcel_Style_Alignment;
+    PHPExcel_Style_Alignment,
+    PHPExcel_Style_Font;
 
 class XlsRegistrations extends XlsAbstract implements XlsInterface {
 
@@ -27,33 +25,53 @@ class XlsRegistrations extends XlsAbstract implements XlsInterface {
                                   ->setCellValue($j++ . $i, $reg->getBirthday()->format("Y-m-d"))
                                   ->setCellValue($j++ . $i, $reg->getPhone())
                                   ->setCellValue($j++ . $i, $reg->getEmail())
-                                  ->setCellValue($j++ . $i, $reg->getCity())
-                                  ->setCellValue($j++ . $i, $reg->getImei())
+                                  ->setCellValue($j++ . $i, $reg->getCity());
+
+                $this->XlsDocument->setActiveSheetIndex(0)
+                                  ->setCellValue($j++ . $i, $reg->getImei(), true)
+                                  ->setDataType();
+
+                $this->XlsDocument->setActiveSheetIndex(0)
                                   ->setCellValue($j++ . $i, $reg->getModel())
-                                  ->setCellValue($j++ . $i, $reg->getDateBuy()->format("Y-m-d"))
-                                  ->setCellValue($j . $i, $reg->getImgPath());
+                                  ->setCellValue($j++ . $i, $reg->getDateBuy()->format("Y-m-d"));
+
+                $styleArray = [
+                    'font' => [
+                        'bold'      => true,
+                        'color'     => array('rgb' => '3366BB'),
+                        'underline' => PHPExcel_Style_Font::UNDERLINE_SINGLE,
+                    ]
+                ];
 
                 $file = $reg->getImgPath();
                 $file = str_replace("/", ":", $file);
                 $file = "external://" . $file;
 
                 $link = new PHPExcel_Cell_Hyperlink($file, $file);
-                $this->XlsDocument->getActiveSheet()
-                                  ->getCell($j . $i)
-                                  ->setHyperlink($link);
-                $this->XlsDocument->getActiveSheet()->getStyle($j . $i)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
-                //->getHyperlink()->setUrl($file);
-//                      ->getCell("M1")->getHyperlink()->setUrl("http://ya.ru");
+                $this->XlsDocument
+                    ->setActiveSheetIndex(0)
+                    ->setCellValue($j . $i, $reg->getImgPath(), true)
+                    ->setHyperlink($link);
+
+                $this->XlsDocument
+                    ->getActiveSheet()
+                    ->getStyle($j . $i)
+                    ->getAlignment()
+                    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_GENERAL);
+
+                $this->XlsDocument
+                    ->getActiveSheet()
+                    ->getStyle($j . $i)
+                    ->applyFromArray($styleArray);
+
                 $i++;
 
                 $maxCol = $j;
 
             }
 
-
-
-            for ($i='A';$i<=$maxCol;$i++) {
+            for ($i = 'A'; $i <= $maxCol; $i++) {
                 $this->XlsDocument->getActiveSheet()
                                   ->getColumnDimension($i)->setAutoSize(true);
             }

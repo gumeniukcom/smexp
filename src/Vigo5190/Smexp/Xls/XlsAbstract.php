@@ -40,11 +40,9 @@ abstract class XlsAbstract implements XlsInterface{
     }
 
     public function dumpXlsToFile($fileNameWithFullPathWithOutExtension){
-//        $objWriter = PHPExcel_IOFactory::createWriter($this->XlsDocument, 'Excel2007');
         $objWriter = PHPExcel_IOFactory::createWriter($this->XlsDocument, 'Excel5');
         $filename = $fileNameWithFullPathWithOutExtension;
         try{
-//            $objWriter->save($filename.'.xlsx');
             $objWriter->save($filename.'.xls');
         } catch (\Exception $e){
             throw new \ErrorException(
@@ -59,11 +57,17 @@ abstract class XlsAbstract implements XlsInterface{
 
     }
 
+    /**
+     *
+     */
     protected function init(){
         $this->initInfo();
         $this->initStyle();
     }
 
+    /**
+     *
+     */
     protected function initInfo(){
         $this->XlsDocument->getProperties()->setCreator("user")
                   ->setLastModifiedBy("username")
@@ -73,6 +77,10 @@ abstract class XlsAbstract implements XlsInterface{
                   ->setKeywords("php, all results")
                   ->setCategory("some category");
     }
+
+    /**
+     *
+     */
     protected function initStyle(){
         $this->XlsDocument->getDefaultStyle()->getFont()
                   ->setName('Arial')

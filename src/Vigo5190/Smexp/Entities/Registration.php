@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Registration
  */
-class Registration
-{
+class Registration {
     /**
      * @var integer
      */
@@ -74,14 +73,12 @@ class Registration
      */
     private $img_path;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -91,8 +88,7 @@ class Registration
      * @param string $somedata1
      * @return Registration
      */
-    public function setSomedata1($somedata1)
-    {
+    public function setSomedata1($somedata1) {
         $this->somedata1 = $somedata1;
 
         return $this;
@@ -101,10 +97,9 @@ class Registration
     /**
      * Get somedata1
      *
-     * @return string 
+     * @return string
      */
-    public function getSomedata1()
-    {
+    public function getSomedata1() {
         return $this->somedata1;
     }
 
@@ -114,8 +109,7 @@ class Registration
      * @param string $name
      * @return Registration
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -124,10 +118,9 @@ class Registration
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -137,8 +130,7 @@ class Registration
      * @param string $secondName
      * @return Registration
      */
-    public function setSecondName($secondName)
-    {
+    public function setSecondName($secondName) {
         $this->second_name = $secondName;
 
         return $this;
@@ -147,10 +139,9 @@ class Registration
     /**
      * Get second_name
      *
-     * @return string 
+     * @return string
      */
-    public function getSecondName()
-    {
+    public function getSecondName() {
         return $this->second_name;
     }
 
@@ -160,8 +151,7 @@ class Registration
      * @param string $lastName
      * @return Registration
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->last_name = $lastName;
 
         return $this;
@@ -170,10 +160,9 @@ class Registration
     /**
      * Get last_name
      *
-     * @return string 
+     * @return string
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->last_name;
     }
 
@@ -183,8 +172,7 @@ class Registration
      * @param \DateTime $birthday
      * @return Registration
      */
-    public function setBirthday($birthday)
-    {
+    public function setBirthday($birthday) {
         $this->birthday = $birthday;
 
         return $this;
@@ -193,10 +181,9 @@ class Registration
     /**
      * Get birthday
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getBirthday()
-    {
+    public function getBirthday() {
         return $this->birthday;
     }
 
@@ -206,8 +193,7 @@ class Registration
      * @param string $phone
      * @return Registration
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
 
         return $this;
@@ -216,10 +202,9 @@ class Registration
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -229,8 +214,7 @@ class Registration
      * @param string $email
      * @return Registration
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -239,10 +223,9 @@ class Registration
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -252,8 +235,7 @@ class Registration
      * @param string $city
      * @return Registration
      */
-    public function setCity($city)
-    {
+    public function setCity($city) {
         $this->city = $city;
 
         return $this;
@@ -262,10 +244,9 @@ class Registration
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
-    public function getCity()
-    {
+    public function getCity() {
         return $this->city;
     }
 
@@ -275,8 +256,7 @@ class Registration
      * @param string $imei
      * @return Registration
      */
-    public function setImei($imei)
-    {
+    public function setImei($imei) {
         $this->imei = $imei;
 
         return $this;
@@ -285,10 +265,9 @@ class Registration
     /**
      * Get imei
      *
-     * @return string 
+     * @return string
      */
-    public function getImei()
-    {
+    public function getImei() {
         return $this->imei;
     }
 
@@ -298,8 +277,7 @@ class Registration
      * @param string $model
      * @return Registration
      */
-    public function setModel($model)
-    {
+    public function setModel($model) {
         $this->model = $model;
 
         return $this;
@@ -308,10 +286,9 @@ class Registration
     /**
      * Get model
      *
-     * @return string 
+     * @return string
      */
-    public function getModel()
-    {
+    public function getModel() {
         return $this->model;
     }
 
@@ -321,8 +298,7 @@ class Registration
      * @param \DateTime $dateBuy
      * @return Registration
      */
-    public function setDateBuy($dateBuy)
-    {
+    public function setDateBuy($dateBuy) {
         $this->date_buy = $dateBuy;
 
         return $this;
@@ -331,10 +307,9 @@ class Registration
     /**
      * Get date_buy
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getDateBuy()
-    {
+    public function getDateBuy() {
         return $this->date_buy;
     }
 
@@ -344,8 +319,7 @@ class Registration
      * @param string $imgPath
      * @return Registration
      */
-    public function setImgPath($imgPath)
-    {
+    public function setImgPath($imgPath) {
         $this->img_path = $imgPath;
 
         return $this;
@@ -354,10 +328,9 @@ class Registration
     /**
      * Get img_path
      *
-     * @return string 
+     * @return string
      */
-    public function getImgPath()
-    {
+    public function getImgPath() {
         return $this->img_path;
     }
 }

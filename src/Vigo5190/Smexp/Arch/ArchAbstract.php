@@ -8,11 +8,29 @@ use ZipArchive,
 
 abstract class ArchAbstract {
 
+    /**
+     * @var string
+     */
     protected $hash;
+
+    /**
+     * @var string
+     */
     protected $tempDir;
+
+    /**
+     * @var string
+     */
     protected $zipPath;
+
+    /**
+     * @var ZipArchive
+     */
     protected $Zip;
 
+    /**
+     *
+     */
     const TEMP_PATH = '/tmp';
 
     public function __construct($tempPath = self::TEMP_PATH) {
@@ -26,14 +44,23 @@ abstract class ArchAbstract {
         self::createDir($this->tempDir . '/uploads');
     }
 
+    /**
+     * @return string
+     */
     public function getHash() {
         return $this->hash;
     }
 
+    /**
+     * @return string
+     */
     public function getTempDir() {
         return $this->tempDir;
     }
 
+    /**
+     * @return string
+     */
     public function getZipArchPath() {
         return $this->zipPath;
     }
@@ -50,7 +77,7 @@ abstract class ArchAbstract {
      */
     public function __destruct() {
         try {
-//            self::rmdir_recursive($this->tempDir);
+            self::rmdir_recursive($this->tempDir);
         } catch (\Exception $e) {
             throw new \ErrorException(
                 sprintf('Can\'t delete temp dir %s, because: %s', $this->tempDir, $e->getMessage()),
