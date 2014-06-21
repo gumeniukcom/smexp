@@ -1,0 +1,57 @@
+---
+Vigo5190\Smexp\Entities\Registration:
+  repositoryClass: Vigo5190\Smexp\Repositories\RegistrationRepository
+  fields:
+    somedata1:
+          length: 255
+          nullable: false
+          type: string
+    name:
+          length: 255
+          nullable: false
+          type: string
+    second_name:
+              length: 255
+              nullable: false
+              type: string
+    last_name:
+              length: 255
+              nullable: false
+              type: string
+    birthday:
+              nullable: false
+              type: datetime
+    phone:
+              length: 255
+              nullable: false
+              type: string
+    email:
+              length: 255
+              nullable: false
+              type: string
+    city:
+              length: 255
+              nullable: false
+              type: string
+    imei:
+              length: 255
+              nullable: false
+              type: string
+    model:
+              length: 255
+              nullable: false
+              type: string
+    date_buy:
+              nullable: false
+              type: datetime
+    img_path:
+              length: 255
+              nullable: false
+              type: string
+  id:
+    id:
+      generator:
+        strategy: AUTO
+      type: integer
+  table: Registration
+  type: entity

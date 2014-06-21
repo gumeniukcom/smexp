@@ -8,5 +8,20 @@
             "name": "Stan Gumeniuk",
             "email": "i@vigo.su"
         }
-    ]
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": {
+            "Vigo5190": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "doctrine/orm": "*",
+        "symfony/yaml": "*",
+        "phpexcel/phpexcel": "*"
+    }
+
 }
